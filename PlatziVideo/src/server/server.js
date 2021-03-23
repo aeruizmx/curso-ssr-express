@@ -67,6 +67,7 @@ const renderApp = (req, res) => {
       </StaticRouter>
     </Provider>
   );
+  res.set("Content-Security-Policy", "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
   res.send(setResponse(html, preloadedState));
 }
 
@@ -76,6 +77,6 @@ app.listen(PORT, (err) => {
   if(err) {
     console.error(err);
   } else {
-    console.log('Server running on 3000 port');
+    console.log(`Server running in ${ENV}, on ${PORT} port `);
   }
 });
