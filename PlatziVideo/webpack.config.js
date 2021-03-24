@@ -4,6 +4,8 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
 require('dotenv').config();
 
 const isDev = (process.env.ENV === 'development');
@@ -71,21 +73,28 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isDev ? 'assets/app.css' : 'assets/app-[hash].css'
     }),
+    isDev ? () => {} : 
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: path.resolve(__dirname, 'src/server/public')
+      })
   ],
   optimization: {
     minimize: true,
-    minimizer: [ new TerserWebpackPlugin()],
+    minimizer: [new TerserWebpackPlugin()],
     splitChunks: {
       chunks: 'async',
-      name: true,
       cacheGroups: {
         vendors: {
           name: 'vendors',
           chunks: 'all',
-          reuseExistingchunk: true,
+          reuseExistingChunk: true,
           priority: 1,
-          filename: isDev ? 'assets/vendor.js' : 'assets/vendor-[hash].js',
-          enforce: true
+          filename: isDev ? 'assets/vendor.js' : 'assets/vendor-[contenthash].js',
+          enforce: true,
+          test(module, chunks) {
+            const name = module.nameForCondition && module.nameForCondition();
+            return (chunks) => chunks.name !== 'vendors' && /[\\/]node_modules[\\/]/.test(name);
+          }
         }
       }
     }
