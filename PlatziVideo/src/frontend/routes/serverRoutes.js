@@ -28,7 +28,7 @@ const routes = [
   {
     name: 'NotFound',
     component: NotFound,
-  }
-]
+  },
+];
 
 export default routes;

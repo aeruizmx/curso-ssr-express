@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { createStore, compose } from 'redux';
-import {  createBrowserHistory } from 'history';
+import { createBrowserHistory } from 'history';
 import reducer from './reducers';
 import App from './routes/App';
 
@@ -20,5 +20,5 @@ ReactDOM.hydrate(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
