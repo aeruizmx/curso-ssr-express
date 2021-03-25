@@ -1,0 +1,17 @@
+{
+  "name": "nextjs",
+  "version": "1.0.0",
+  "description": "Next.js en clase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "Next.js"
+  ],
+  "author": "Andres Ruiz <andres87aldos@gmail.com>",
+  "license": "MIT"
+}
